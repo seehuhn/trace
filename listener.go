@@ -18,6 +18,7 @@ type listenerInfo struct {
 	prio     Priority
 	listener Listener
 }
+
 var listeners map[ListenerHandle]*listenerInfo
 var listenerIdx ListenerHandle
 
