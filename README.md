@@ -7,7 +7,7 @@ Code using this framework can emit diagnostic messages using the
 trace.T() function.  Example:
 
     trace.T("a/b/c", trace.PrioError,
-    "failed to connect to server %q, using offline mode", serverName)
+            "failed to connect to server %q, using offline mode", serverName)
 
 The first argument in this call is a path which gives information
 about the origin of the message, the second argument indicates the
