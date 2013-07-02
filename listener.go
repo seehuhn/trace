@@ -27,7 +27,7 @@ var listenerIdx ListenerHandle
 //
 // The argument 'path' restricts the messages received to messages
 // corresponding to the given path and its sub-paths (see the
-// description of 'T' for details).  The value must neigher start nor
+// description of 'T' for details).  The value must neither start nor
 // end in a slash.  The empty string can be used to receive trace
 // messages from all paths.
 //
@@ -47,8 +47,9 @@ func Register(listener Listener, path string, prio Priority) ListenerHandle {
 	return handle
 }
 
-// Unregister removes a listener which previously had been installed
-// with a call to Register().
+// Unregister removes a previously installed listener.  The argument
+// 'handle' must be the value returned by the corresponding call to
+// Register()
 func (handle ListenerHandle) Unregister() {
 	delete(listeners, handle)
 }

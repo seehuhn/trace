@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+// Priority is the type used to denote message priorities.  The higher
+// the value, the more important the message is.  See the descriptions
+// of PrioCritical, PrioError, PrioInfo, PrioDebug and PrioVerbose for
+// details.
 type Priority int32
 
 const (
@@ -74,7 +78,11 @@ const (
 // that they make sense to a person not familiar with the source code
 // of the program.  Messages of priority PrioDebug or higher should
 // consist of a single line.
-func T(path string, prio Priority, tmpl string, args ...interface{}) {
+//
+// The argument 'format' and the following, optional arguments are
+// passed to fmt.Sprintf to compose the message reported to the
+// listeners registered for the given message path.
+func T(path string, prio Priority, format string, args ...interface{}) {
 	if len(listeners) == 0 {
 		return
 	}
@@ -89,7 +97,7 @@ func T(path string, prio Priority, tmpl string, args ...interface{}) {
 			}
 			if first {
 				t = time.Now()
-				msg = fmt.Sprintf(tmpl, args...)
+				msg = fmt.Sprintf(format, args...)
 			}
 			c.listener(t, path, prio, msg)
 		}

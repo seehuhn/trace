@@ -4,7 +4,7 @@
 // Sending Messages
 //
 // Code using this framework can emit diagnostic messages using the
-// trace.T function.  Example:
+// trace.T() function.  Example:
 //
 //     trace.T("a/b/c", trace.PrioError,
 //             "failed to connect to server %q, using offline mode", serverName)
@@ -13,15 +13,18 @@
 // about the origin of the message, the second argument indicates the
 // importance of the message.  Both, the path and the priority are
 // used to decide which listeners receive the correponding message.
+// The following arguments, a format string and additional optional
+// arguments, are passed to fmt.Sprintf to compose the message
+// reported to the listeners registered for the given message path.
 //
 // Receiving Messages
 //
 // Listeners can subscribe to messages, either for a given path or for
-// all paths, and they can specify a minimum priority for messages to
-// be delivered.  Example:
+// all paths, using the Register() method.  A minimum priority for
+// messages to be delivered can be used.  Example:
 //
 //     func MyListener(t time.Time, path string, prio Priority, msg string) {
-//             // ... do something
+//             log.Println(msg)
 //     }
 //
 //     func main() {

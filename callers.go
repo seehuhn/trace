@@ -8,10 +8,11 @@ import (
 
 // Callers is a helper function to get a stack trace from within a
 // trace listener function.  The result is a list of strings, each
-// giving a function name and line number.  The first string
-// corresponds to the call of trace.T(), the last string corresponds
-// to the program's main function.  If Callers is called from outside
-// a trace listener, nil is returned.
+// giving a Go source file name, followed by a colon and a line number
+// within the source file.  The first string corresponds to the call
+// of trace.T(), the last string corresponds to the program's main
+// function.  If Callers() is called from outside a trace listener,
+// a run-time panic is triggered.
 func Callers() []string {
 	res := []string{}
 
@@ -30,5 +31,9 @@ func Callers() []string {
 		}
 		res = append(res, fmt.Sprintf("%s:%d", file, line))
 	}
+	if ! callToTSeen {
+		panic("Callers() must be called from within trace listener")
+	}
+
 	return res
 }

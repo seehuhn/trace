@@ -7,9 +7,22 @@ import (
 	"time"
 )
 
+var hasPaniced bool
+var panicMethod string
+
+func TestPanic(t *testing.T) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("panic: %#v\n", r)
+		} else {
+			t.Error("Callers() did not panic when it should have done")
+		}
+	}()
+	Callers()
+}
+
 func TestCallers(t *testing.T) {
 	seen := false
-
 	helper1 := func() {
 		seen = true
 		lines := Callers()
@@ -26,7 +39,6 @@ func TestCallers(t *testing.T) {
 		helper1()
 	}
 	handler := func(t time.Time, path string, prio Priority, msg string) {
-		fmt.Println("yyy")
 		helper2()
 	}
 
