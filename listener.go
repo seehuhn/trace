@@ -17,6 +17,7 @@
 package trace
 
 import (
+	"sync"
 	"time"
 )
 
@@ -35,6 +36,7 @@ type listenerInfo struct {
 	listener Listener
 }
 
+var listenerMutex sync.RWMutex	// protects listeners and listenerIdx
 var listeners map[ListenerHandle]*listenerInfo
 var listenerIdx ListenerHandle
 
@@ -53,6 +55,7 @@ var listenerIdx ListenerHandle
 // for the given path which do not require familiarity with the
 // program source code.
 func Register(listener Listener, path string, prio Priority) ListenerHandle {
+	listenerMutex.Lock()
 	handle := listenerIdx
 	listenerIdx += 1
 	listeners[handle] = &listenerInfo{
@@ -60,6 +63,7 @@ func Register(listener Listener, path string, prio Priority) ListenerHandle {
 		path:     path,
 		listener: listener,
 	}
+	listenerMutex.Unlock()
 	return handle
 }
 
@@ -67,7 +71,9 @@ func Register(listener Listener, path string, prio Priority) ListenerHandle {
 // 'handle' must be the value returned by the corresponding call to
 // Register()
 func (handle ListenerHandle) Unregister() {
+	listenerMutex.Lock()
 	delete(listeners, handle)
+	listenerMutex.Unlock()
 }
 
 func init() {

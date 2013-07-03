@@ -99,6 +99,8 @@ const (
 // passed to fmt.Sprintf to compose the message reported to the
 // listeners registered for the given message path.
 func T(path string, prio Priority, format string, args ...interface{}) {
+	listenerMutex.RLock()
+	defer listenerMutex.RUnlock()
 	if len(listeners) == 0 {
 		return
 	}

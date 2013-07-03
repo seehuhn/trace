@@ -1,0 +1,14 @@
+This list contains some ideas for possible future improvements
+of the trace package:
+
+- The locking slows down calls to T() by a factor of more than 10 (in
+  the absence of listeners).  Can anything be done to make this
+  faster?  Maybe atomic.StorePointer can be used to implement
+  something RCU like?
+
+  (RCU was suggested on golang-nuts by Tamás Gulácsi)
+
+- Kamil Kisiel suggested the following on golang-nuts: ... using build
+  tags to allow completely compiling out tracing? So unless a program
+  is build with -tags trace all the trace functions are replaced with
+  empty ones.
