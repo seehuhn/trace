@@ -114,6 +114,7 @@ func T(path string, prio Priority, format string, args ...interface{}) {
 			if first {
 				t = time.Now()
 				msg = fmt.Sprintf(format, args...)
+				first = false
 			}
 			c.listener(t, path, prio, msg)
 		}
