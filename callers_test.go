@@ -28,9 +28,7 @@ var panicMethod string
 
 func TestPanic(t *testing.T) {
 	defer func() {
-		if r := recover(); r != nil {
-			fmt.Printf("panic: %#v\n", r)
-		} else {
+		if r := recover(); r == nil {
 			t.Error("Callers() did not panic when it should have done")
 		}
 	}()
