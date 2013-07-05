@@ -24,9 +24,7 @@ import (
 )
 
 // Priority is the type used to denote message priorities.  The higher
-// the value, the more important the message is.  See the descriptions
-// of PrioCritical, PrioError, PrioInfo, PrioDebug and PrioVerbose for
-// details.
+// the value, the more important the message is.
 type Priority int32
 
 const (
@@ -38,7 +36,7 @@ const (
 	// source code of the program.  A message of priority PrioCritical
 	// could, for example, give the name of a missing but required
 	// configuration file.
-	PrioCritical = Priority(2000)
+	PrioCritical Priority = 2000
 
 	// PrioError indicates a non-fatal, one-line message which is
 	// likely to be of interest to an administrator of the system
@@ -47,7 +45,7 @@ const (
 	// source code of the program.  A message of priority PrioError
 	// could, for example, indicate that the program runs with reduced
 	// functionality because of a configuration error.
-	PrioError = Priority(1000)
+	PrioError Priority = 1000
 
 	// PrioInfo indicates one-line status messages which allow to
 	// track the activity of the program, and which may be of interest
@@ -56,27 +54,27 @@ const (
 	// makes sense to a person not familiar with the source code of
 	// the program.  A message of priority PrioInfo could, for
 	// example, indicate that a configuration file has been read.
-	PrioInfo = Priority(0)
+	PrioInfo Priority = 0
 
 	// PrioDebug indicates a one-line message which is likely to be of
 	// interest to a developer of the program.  The message text may
 	// assume that the reader is familiar with the source code of the
 	// program.  A message of priority PrioDebug could, for example,
 	// indicate that a library returned an unexpected error code.
-	PrioDebug = Priority(-1000)
+	PrioDebug Priority = -1000
 
-	// PrioDebug indicates a message which may be of interest to a
+	// PrioVerbose indicates a message which may be of interest to a
 	// developer of the program.  The message text may assume that the
 	// reader is familiar with the source code of the program, and the
 	// text may consist of several lines.  A message of priority
 	// PrioDebug could, for example, give the contents of a remote
 	// server response to assist with debugging of network protocol
 	// incompatibility.
-	PrioVerbose = Priority(-2000)
+	PrioVerbose Priority = -2000
 
 	// PrioAll is used to register a listener which receives all
 	// messages for a given path.
-	PrioAll = Priority(math.MinInt32)
+	PrioAll Priority = math.MinInt32
 )
 
 // T is used to send a trace message and to the registered listeners.
@@ -105,8 +103,10 @@ func T(path string, prio Priority, format string, args ...interface{}) {
 		return
 	}
 
-	var t time.Time
-	var msg string
+	var (
+		t   time.Time
+		msg string
+	)
 	first := true
 	for _, c := range listeners {
 		if prio >= c.prio && strings.HasPrefix(path, c.path) {
