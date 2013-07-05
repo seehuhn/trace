@@ -63,7 +63,7 @@ const (
 	// indicate that a library returned an unexpected error code.
 	PrioDebug Priority = -1000
 
-	// PrioDebug indicates a message which may be of interest to a
+	// PrioVerbose indicates a message which may be of interest to a
 	// developer of the program.  The message text may assume that the
 	// reader is familiar with the source code of the program, and the
 	// text may consist of several lines.  A message of priority
