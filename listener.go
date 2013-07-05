@@ -36,7 +36,7 @@ type listenerInfo struct {
 	listener Listener
 }
 
-var listenerMutex sync.RWMutex	// protects listeners and listenerIdx
+var listenerMutex sync.RWMutex // protects listeners and listenerIdx
 var listeners map[ListenerHandle]*listenerInfo
 var listenerIdx ListenerHandle
 

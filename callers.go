@@ -47,7 +47,7 @@ func Callers() []string {
 		}
 		res = append(res, fmt.Sprintf("%s:%d", file, line))
 	}
-	if ! callToTSeen {
+	if !callToTSeen {
 		panic("Callers() must be called from within trace listener")
 	}
 
