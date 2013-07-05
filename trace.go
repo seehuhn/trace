@@ -105,8 +105,10 @@ func T(path string, prio Priority, format string, args ...interface{}) {
 		return
 	}
 
-	var t time.Time
-	var msg string
+	var (
+		t   time.Time
+		msg string
+	)
 	first := true
 	for _, c := range listeners {
 		if prio >= c.prio && strings.HasPrefix(path, c.path) {

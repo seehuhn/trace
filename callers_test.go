@@ -23,8 +23,10 @@ import (
 	"time"
 )
 
-var hasPaniced bool
-var panicMethod string
+var (
+	hasPaniced  bool
+	panicMethod string
+)
 
 func TestPanic(t *testing.T) {
 	defer func() {

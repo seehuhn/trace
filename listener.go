@@ -36,9 +36,11 @@ type listenerInfo struct {
 	listener Listener
 }
 
-var listenerMutex sync.RWMutex // protects listeners and listenerIdx
-var listeners map[ListenerHandle]*listenerInfo
-var listenerIdx ListenerHandle
+var (
+	listenerMutex sync.RWMutex // protects listeners and listenerIdx
+	listeners     = map[ListenerHandle]*listenerInfo{}
+	listenerIdx   ListenerHandle
+)
 
 // Register adds the function 'listener' to the list of functions
 // receiving trace messages.
@@ -74,8 +76,4 @@ func (handle ListenerHandle) Unregister() {
 	listenerMutex.Lock()
 	delete(listeners, handle)
 	listenerMutex.Unlock()
-}
-
-func init() {
-	listeners = map[ListenerHandle]*listenerInfo{}
 }

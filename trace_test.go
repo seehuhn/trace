@@ -81,8 +81,10 @@ func TestT(t *testing.T) {
 		},
 	}
 
-	var called bool
-	var seenMsg string
+	var (
+		called  bool
+		seenMsg string
+	)
 	handle := Register(
 		func(t time.Time, path string, prio Priority, msg string) {
 			called = true
