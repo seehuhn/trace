@@ -39,7 +39,7 @@
 // all paths, using the Register() method.  A minimum priority for
 // messages to be delivered can be used.  Example:
 //
-//     func MyListener(t time.Time, path string, prio Priority, msg string) {
+//     func MyListener(t time.Time, path string, prio trace.Priority, msg string) {
 //             log.Println(msg)
 //     }
 //
