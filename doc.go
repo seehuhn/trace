@@ -22,7 +22,7 @@
 // Code using this framework can emit diagnostic messages using the
 // trace.T() function.  Example:
 //
-//     trace.T("a/b/c", trace.PrioError,
+//     trace.T("client/setup", trace.PrioError,
 //             "failed to connect to server %q, using offline mode", serverName)
 //
 // The first argument in this call is a path which gives information
@@ -39,16 +39,16 @@
 // all paths, using the Register() method.  A minimum priority for
 // messages to be delivered can be used.  Example:
 //
-//     func MyListener(t time.Time, path string, prio trace.Priority, msg string) {
-//             log.Println(msg)
+//     func printTrace(t time.Time, path string, prio trace.Priority, msg string) {
+//             fmt.Printf("%s:%s: %s\n", t.Format("15:04:05.000"), path, msg)
 //     }
 //
 //     func main() {
-//             listener := trace.Register(MyListener, "a/b", trace.PrioAll)
+//             listener := trace.Register(printTrace, "client", trace.PrioAll)
 //             // ... code which calls trace.T()
 //             listener.Unregister()
 //     }
 //
-// This code installs MyListener as a handler which receives all
-// messages sent for the path "a/b" and its sub-paths.
+// This code installs printTrace as a handler which receives all
+// messages sent for the path "client" and its sub-paths.
 package trace
