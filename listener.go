@@ -28,7 +28,7 @@ type Listener func(t time.Time, path string, prio Priority, msg string)
 // ListenerHandle is the type returned by Register().  The returned
 // values can be used in Unregister() to remove previously installed
 // handlers.
-type ListenerHandle int
+type ListenerHandle uint
 
 type listenerInfo struct {
 	path     string
@@ -37,9 +37,9 @@ type listenerInfo struct {
 }
 
 var (
-	listenerMutex sync.RWMutex // protects listeners and listenerIdx
-	listeners     = map[ListenerHandle]*listenerInfo{}
-	listenerIdx   ListenerHandle
+	listenerMutex sync.RWMutex   // protects listeners and listenerIdx
+	listeners                    = map[ListenerHandle]*listenerInfo{}
+	listenerIdx   ListenerHandle = 1
 )
 
 // Register adds the function 'listener' to the list of functions
