@@ -33,7 +33,7 @@ func (t *traceInfo) Set(value string) error {
 		prio = PrioCritical
 	case "error":
 		prio = PrioError
-	case "info":
+	case "true", "info":
 		prio = PrioInfo
 	case "debug":
 		prio = PrioDebug
@@ -89,6 +89,10 @@ func (t *traceInfo) String() string {
 		s = s + "@" + t.path
 	}
 	return s
+}
+
+func (t *traceInfo) IsBoolFlag() bool {
+	return true
 }
 
 var traceFlag *traceInfo
